@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Камазианство: Не сворачивай с Пути</title>
+    <!-- Иконка вкладки ☣ -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☣</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Oswald:wght@600&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --kamaz-red: #8b0000;
+            --kamaz-blood: #660000;
+            --kamaz-yellow: #cc9900;
+            --asphalt: #1a1a1a;
+            --road-line: #cc9900;
+            --diesel: #222;
+            --fog: #2a2a2a;
+            --headlight: #ffffcc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--asphalt);
+            color: #ccc;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(102, 0, 0, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(102, 0, 0, 0.1) 0%, transparent 20%),
+                repeating-linear-gradient(to right, 
+                    transparent, 
+                    transparent 49px, 
+                    rgba(139, 0, 0, 0.1) 50px, 
+                    rgba(139, 0, 0, 0.1) 51px, 
+                    transparent 52px);
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(ellipse at 20% 30%, rgba(204, 153, 0, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(139, 0, 0, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .flicker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            animation: flicker 15s infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { opacity: 0.02; }
+            50% { opacity: 0.05; }
+        }
+        
+        .headlight {
+            position: fixed;
+            width: 300px;
+            height: 150px;
+            background: radial-gradient(ellipse at center, 
+                rgba(255, 255, 204, 0.2) 0%, 
+                rgba(255, 255, 204, 0.1) 30%, 
+                transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.7;
+            animation: headlightMove 20s infinite alternate;
+        }
+        
+        @keyframes headlightMove {
+            0% { transform: translateX(-100px) translateY(50px); }
+            100% { transform: translateX(calc(100vw - 200px)) translateY(calc(100vh - 200px)); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            background: linear-gradient(to bottom, rgba(139, 0, 0, 0.9), rgba(102, 0, 0, 0.8));
+            padding: 20px 0;
+            border-bottom: 5px solid var(--kamaz-yellow);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.7);
+        }
+        
+        header:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%23cc9900' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--kamaz-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            color: var(--kamaz-blood);
+            font-size: 32px;
+            border: 3px solid var(--kamaz-blood);
+            box-shadow: 0 0 10px rgba(204, 153, 0, 0.7);
+            position: relative;
+        }
+        
+        .logo-icon::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: inset 0 0 10px rgba(102, 0, 0, 0.7);
+        }
+        
+        .logo-text {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            letter-spacing: 1px;
+        }
+        
+        .logo-subtext {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 5px;
+            font-style: italic;
+            color: #aaa;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 25px;
+            position: relative;
+        }
+        
+        nav li::before {
+            content: "•";
+            position: absolute;
+            left: -15px;
+            color: var(--kamaz-yellow);
+            opacity: 0.7;
+        }
+        
+        nav a {
+            color: #ddd;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-size: 18px;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--kamaz-yellow);
+            text-shadow: 0 0 8px rgba(204, 153, 0, 0.5);
+        }
+        
+        nav a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            right: 10px;
+            height: 2px;
+            background-color: var(--kamaz-yellow);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        
+        nav a:hover::after {
+            transform: scaleX(1);
+        }
+        
+        .hero {
+            background: 
+                linear-gradient(rgba(26, 26, 26, 0.85), rgba(26, 26, 26, 0.95)),
+                url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0;
+            text-align: center;
+            border-bottom: 3px solid var(--kamaz-blood);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(204, 153, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 0, 0, 0.1) 0%, transparent 50%);
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 52px;
+            margin-bottom: 25px;
+            color: var(--kamaz-yellow);
+            text-shadow: 3px 3px 0 var(--kamaz-blood), 0 0 20px rgba(139, 0, 0, 0.7);
+            letter-spacing: 2px;
+            position: relative;
+            animation: titleGlow 3s infinite alternate;
+            line-height: 1.2;
+        }
+        
+        @keyframes titleGlow {
+            0% { text-shadow: 3px 3px 0 var(--kamaz-blood), 0 0 15px rgba(204, 153, 0, 0.5); }
+            100% { text-shadow: 3px 3px 0 var(--kamaz-blood), 0 0 25px rgba(204, 153, 0, 0.8); }
+        }
+        
+        .hero p {
+            font-size: 22px;
+            margin: 0 auto 35px;
+            color: #ccc;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            line-height: 1.6;
+            max-width: 800px;
+        }
+        
+        .hero-divider {
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--kamaz-yellow), transparent);
+            margin: 40px auto;
+            width: 80%;
+            max-width: 600px;
+        }
+        
+        .warning {
+            display: block;
+            background-color: rgba(139, 0, 0, 0.3);
+            color: #ffcccc;
+            padding: 18px 25px;
+            border-radius: 5px;
+            border-left: 4px solid var(--kamaz-yellow);
+            margin: 35px auto;
+            font-style: italic;
+            max-width: 700px;
+            font-size: 18px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        .btn-container {
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to bottom, var(--kamaz-red), var(--kamaz-blood));
+            color: var(--kamaz-yellow);
+            padding: 18px 45px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            font-size: 20px;
+            transition: all 0.3s;
+            border: 2px solid var(--kamaz-yellow);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            letter-spacing: 1.5px;
+            position: relative;
+            overflow: hidden;
+            min-width: 280px;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(to bottom, #9c0000, #770000);
+            color: #ffcc00;
+            box-shadow: 0 5px 20px rgba(204, 153, 0, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+        
+        .btn:hover::after {
+            left: 100%;
+        }
+        
+        .section {
+            padding: 90px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--kamaz-yellow);
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            padding-bottom: 20px;
+        }
+        
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 180px;
+            height: 4px;
+            background: linear-gradient(to right, transparent, var(--kamaz-yellow), transparent);
+            margin: 20px auto 0;
+        }
+        
+        .beliefs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-bottom: 70px;
+        }
+        
+        .belief-card {
+            background-color: rgba(34, 34, 34, 0.8);
+            border-radius: 8px;
+            padding: 35px;
+            border-left: 6px solid var(--kamaz-blood);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .belief-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(139, 0, 0, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .belief-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .belief-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+        }
+        
+        .belief-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: var(--kamaz-yellow);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            border-bottom: 1px solid rgba(139, 0, 0, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        .ritual {
+            background-color: rgba(26, 26, 26, 0.9);
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 50px;
+            border: 2px solid var(--kamaz-blood);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+            position: relative;
+        }
+        
+        .ritual::before {
+            content: "⚠";
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--kamaz-yellow);
+            color: var(--kamaz-blood);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            box-shadow: 0 0 15px rgba(204, 153, 0, 0.7);
+            z-index: 2;
+        }
+        
+        .ritual h3 {
+            color: var(--kamaz-yellow);
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid rgba(139, 0, 0, 0.5);
+            padding-bottom: 15px;
+        }
+        
+        .ritual-steps {
+            margin-left: 25px;
+            margin-top: 25px;
+        }
+        
+        .ritual-steps li {
+            margin-bottom: 18px;
+            padding-left: 15px;
+            position: relative;
+            font-size: 17px;
+        }
+        
+        .ritual-steps li::before {
+            content: "⟢";
+            position: absolute;
+            left: -10px;
+            color: var(--kamaz-yellow);
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .codex-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+            margin-bottom: 80px;
+        }
+        
+        .codex-item {
+            background-color: rgba(34, 34, 34, 0.8);
+            padding: 35px;
+            border-radius: 8px;
+            border-top: 6px solid var(--kamaz-blood);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+        
+        .codex-item h4 {
+            color: var(--kamaz-yellow);
+            font-family: 'Cinzel', serif;
+            font-size: 26px;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            border-bottom: 1px solid rgba(139, 0, 0, 0.3);
+            padding-bottom: 12px;
+        }
+        
+        .codex-item ul {
+            margin-left: 20px;
+        }
+        
+        .codex-item ul li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            position: relative;
+            font-size: 17px;
+        }
+        
+        .codex-item ul li::before {
+            content: "☣";
+            position: absolute;
+            left: -25px;
+            color: var(--kamaz-red);
+            font-size: 16px;
+        }
+        
+        .heaven-hell-container {
+            background-color: rgba(26, 26, 26, 0.9);
+            border-radius: 8px;
+            padding: 40px;
+            border: 2px solid var(--kamaz-blood);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+            margin-top: 30px;
+        }
+        
+        .heaven-hell-container h3 {
+            color: var(--kamaz-yellow);
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 2px solid rgba(139, 0, 0, 0.5);
+            padding-bottom: 15px;
+        }
+        
+        .heaven-hell-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .heaven, .hell {
+            padding: 30px;
+            border-radius: 8px;
+            height: 100%;
+        }
+        
+        .heaven {
+            background: linear-gradient(to bottom, rgba(0, 50, 0, 0.2), rgba(0, 30, 0, 0.3));
+            border: 2px solid #4CAF50;
+        }
+        
+        .hell {
+            background: linear-gradient(to bottom, rgba(50, 0, 0, 0.2), rgba(30, 0, 0, 0.3));
+            border: 2px solid #f44336;
+        }
+        
+        .heaven h4, .hell h4 {
+            font-family: 'Cinzel', serif;
+            font-size: 26px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .heaven h4 {
+            color: #4CAF50;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+        
+        .hell h4 {
+            color: #f44336;
+            text-shadow: 0 0 10px rgba(244, 67, 54, 0.5);
+        }
+        
+        .mantra {
+            background-color: rgba(102, 0, 0, 0.2);
+            border: 2px solid var(--kamaz-yellow);
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 24px;
+            font-style: italic;
+            margin: 60px 0;
+            font-family: 'Cinzel', serif;
+            box-shadow: 0 0 25px rgba(204, 153, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mantra::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: translateX(-100%);
+            animation: mantraGlow 5s infinite;
+        }
+        
+        @keyframes mantraGlow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        footer {
+            background-color: #111;
+            padding: 50px 0;
+            text-align: center;
+            border-top: 5px solid var(--kamaz-blood);
+            margin-top: 80px;
+            position: relative;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.7);
+        }
+        
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, transparent 45%, rgba(139, 0, 0, 0.1) 50%, transparent 55%),
+                linear-gradient(-45deg, transparent 45%, rgba(139, 0, 0, 0.1) 50%, transparent 55%);
+        }
+        
+        .footer-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            color: var(--kamaz-yellow);
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+        
+        .copyright {
+            color: #666;
+            font-size: 16px;
+            margin-top: 25px;
+            font-style: italic;
+            line-height: 1.5;
+        }
+        
+        .road-line {
+            height: 12px;
+            background: repeating-linear-gradient(to right, 
+                var(--road-line), 
+                var(--road-line) 25px, 
+                transparent 25px, 
+                transparent 50px);
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .road-line::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: roadLineMove 2s infinite linear;
+        }
+        
+        @keyframes roadLineMove {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .blood-drop {
+            position: fixed;
+            width: 5px;
+            height: 10px;
+            background-color: rgba(139, 0, 0, 0.7);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+            animation: bloodDrop 10s infinite;
+        }
+        
+        @keyframes bloodDrop {
+            0% { 
+                opacity: 0;
+                transform: translateY(-100px) rotate(0deg); 
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { 
+                opacity: 0;
+                transform: translateY(100vh) rotate(360deg); 
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav li {
+                margin: 5px 15px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .headlight {
+                display: none;
+            }
+            
+            .codex-container,
+            .heaven-hell-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
+            
+            .btn {
+                padding: 16px 35px;
+                font-size: 18px;
+                min-width: 250px;
+            }
+        }
+        
+        .sin-counter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(26, 26, 26, 0.9);
+            border: 2px solid var(--kamaz-blood);
+            border-radius: 5px;
+            padding: 15px;
+            font-family: 'Cinzel', serif;
+            color: var(--kamaz-yellow);
+            box-shadow: 0 0 15px rgba(0,0,0,0.7);
+            z-index: 1000;
+            min-width: 200px;
+        }
+        
+        .sin-counter h4 {
+            margin-bottom: 10px;
+            font-size: 16px;
+            border-bottom: 1px solid rgba(139, 0, 0, 0.5);
+            padding-bottom: 5px;
+        }
+        
+        .sin-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .sin-count {
+            color: #ff6666;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="flicker"></div>
+    <div class="headlight"></div>
+    
+    <!-- Создаем капли крови -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            for (let i = 0; i < 15; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'blood-drop';
+                drop.style.left = Math.random() * 100 + 'vw';
+                drop.style.animationDelay = Math.random() * 10 + 's';
+                drop.style.width = (Math.random() * 8 + 3) + 'px';
+                drop.style.height = (Math.random() * 15 + 5) + 'px';
+                document.body.appendChild(drop);
+            }
+        });
+    </script>
+    
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">☣</div>
+                    <div>
+                        <div class="logo-text">Камазианство</div>
+                        <div class="logo-subtext">Не сворачивай с Пути</div>
+                    </div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#beliefs">Догматы</a></li>
+                        <li><a href="#rituals">Испытания</a></li>
+                        <li><a href="#codex">Кодекс</a></li>
+                        <li><a href="#about">Покаяние</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>ПУТЬ ВСЕДЕРЖИТЕЛЯ</h1>
+                <p>В начале была Грузоподъёмность. И Камаз-Вседержитель сказал: «Да будет Крутящий Момент!» — и понеслось. Тот, кто свернет с пути, будет сметен.</p>
+                
+                <div class="hero-divider"></div>
+                
+                <div class="warning">
+                    <strong>Внимание:</strong> сайт содержит сакральные истины Камазианства. Нечитание — грех пустого кузова.
+                </div>
+                
+                <div class="btn-container">
+                    <a href="#rituals" class="btn">ПРИНЯТЬ ИСПЫТАНИЕ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="road-line"></div>
+    
+    <section id="beliefs" class="section">
+        <div class="container">
+            <h2 class="section-title">Незыблемые Догматы</h2>
+            <div class="beliefs-grid">
+                <div class="belief-card">
+                    <h3>Камаз-Вседержитель</h3>
+                    <p>Он едет вечно по Кольцевой Дороге Мироздания, доставляя грузы из Ниоткуда в Никуда. Его бампер не знает пощады, его дизель не знает усталости. Свернувший с Его Пути обречен на вечное блуждание в пробках.</p>
+                </div>
+                <div class="belief-card">
+                    <h3>Крутящий Момент</h3>
+                    <p>Первое проявление воли Камаза. Без Крутящего Момента нет движения, нет Пути. Тот, кто теряет Момент, теряет всё. Его душа обречена крутиться вхолостую в аду сломанных двигателей.</p>
+                </div>
+                <div class="belief-card">
+                    <h3>Пешеходы-искусители</h3>
+                    <p>Бестелесные «дорожные пиявки», посланные испытать веру. Их прикосновение к бамперу — либо мгновенное отпущение их грехов, либо переход их души в нового водителя. Не уступи дорогу искусителю.</p>
+                </div>
+            </div>
+            
+            <div class="mantra">
+                "Дизель-мне-помощник, не заклини ступицу мою, да не сверну я с предначертанного Пути"
+            </div>
+        </div>
+    </section>
+    
+    <div class="road-line"></div>
+    
+    <section id="rituals" class="section">
+        <div class="container">
+            <h2 class="section-title">Страшные Испытания</h2>
+            
+            <div class="ritual">
+                <h3>Молитвенное Сбивание</h3>
+                <p><strong>Это не акт агрессии, а испытание веры.</strong> Когда верующий входит в состояние «Дорожной Благодати», его курс божественно предопределён. Пешеход на пути — это испытание, посланное Камазом.</p>
+                
+                <p><strong>Последствия сбивания:</strong></p>
+                <ol class="ritual-steps">
+                    <li><strong>Для грешника-искусителя:</strong> Мгновенная смерть и вечное блуждание по обочинам миров.</li>
+                    <li><strong>Для добровольной жертвы:</strong> Душа вселяется в нового водителя-дальнобойщика, обретая шанс на спасение.</li>
+                    <li><strong>Для водителя, который свернул:</strong> Проклятие пустого кузова и вечные поломки на пустынных трассах.</li>
+                </ol>
+                
+                <p><strong>Обряд завершения:</strong></p>
+                <ul class="ritual-steps">
+                    <li>Не сбавляя скорости, трижды просигналить (сигнал покаяния).</li>
+                    <li>Произнести: «Принято. Спасибо за участие в испытании. Да пребудет с тобой Крутящий Момент».</li>
+                    <li>Никогда не оглядываться. Оглянувшийся теряет благодать.</li>
+                </ul>
+            </div>
+            
+            <div class="beliefs-grid">
+                <div class="belief-card">
+                    <h3>Окропление омывайкой</h3>
+                    <p>Ритуал освящения маршрута. Несовершивший ритуал рискует попасть в туман забвения и сбиться с Пути навеки.</p>
+                </div>
+                <div class="belief-card">
+                    <h3>Воскурение выхлопными газами</h3>
+                    <p>Задабривание дорожных духов. Непочтивший духов будет остановлен на вечном посту ДПС без документов и прав.</p>
+                </div>
+                <div class="belief-card">
+                    <h3>Пост «Под погрузкой»</h3>
+                    <p>Испытание плоти. Нарушивший пост будет осужден на вечную диету из доширака без приправы.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="road-line"></div>
+    
+    <section id="codex" class="section">
+        <div class="container">
+            <h2 class="section-title">Жестокий Кодекс</h2>
+            
+            <div class="codex-container">
+                <div class="codex-item">
+                    <h4>Добродетели</h4>
+                    <ul>
+                        <li><strong>Непоколебимость:</strong> Свернуть — предать Путь. Предавший будет сметен фурой забвения.</li>
+                        <li><strong>Тяжеловесность:</strong> Пустой кузов — символ пустой души, которую ветер унесет с трассы.</li>
+                        <li><strong>Постоянство:</strong> Меняющий полосу меняет судьбу. Новая полоса ведет в адскую пробку.</li>
+                        <li><strong>Терпение:</strong> Терпящий дорожные испытания будет вознагражден прямой трассой.</li>
+                        <li><strong>Бдительность:</strong> Бодрствующий за рулем избежит ловушек ночных духов.</li>
+                    </ul>
+                </div>
+                
+                <div class="codex-item">
+                    <h4>Смертные грехи</h4>
+                    <ul>
+                        <li><strong>Пустой кузов:</strong> Душа, не несущая груза веры. Наказание: вечная езда по кольцевой без выезда.</li>
+                        <li><strong>Перегруз по осям:</strong> Гордыня. Наказание: поломка моста в самом удаленном от помощи месте.</li>
+                        <li><strong>Пользование «легковушкой»:</strong> Ересь. Наказание: вечные поиски парковки в аду мегаполиса.</li>
+                        <li><strong>Остановка без необходимости:</strong> Маловерие. Наказание: стартер никогда не сработает снова.</li>
+                        <li><strong>Использование автопилота:</strong> Отречение от воли. Наказание: вечное блуждание по сервисным дорогам.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="heaven-hell-container">
+                <h3>Рай и Ад Камазианца</h3>
+                <div class="heaven-hell-grid">
+                    <div class="heaven">
+                        <h4>Рай Вседержителя</h4>
+                        <p>Бесконечная прямая дорога с идеальным асфальтом, вечно зелёным светом и пунктом раздачи бесплатной солярки. Температура +20°C, кондиционер работает исправно, в радиоэфире — только проверенный рок. Груз всегда доставляется в срок. На заправках — вечное кофе и свежие пирожки. Никаких платных дорог, везде правый ряд свободен.</p>
+                        <p><strong>Путь в Рай:</strong> Никогда не сворачивать, всегда ехать с полным кузовом, почитать Дорожных Духов.</p>
+                    </div>
+                    <div class="hell">
+                        <h4>Ад Отступника</h4>
+                        <p>Вечная пробка на въезде в Москву в час пик. Кондиционер сломан, печка работает на максимуме, окна не открываются. Радио ловит только шансон на повторении. Впереди — авария, сзади — «скорая» с сиреной. Объездов нет. Навигатор сломан. Запах жареной колбасы из соседней фуры. Вечные ремонты дорог, объезды через грунтовки. Солярка вечно заканчивается за 10 км до заправки.</p>
+                        <p><strong>Путь в Ад:</strong> Свернуть с пути, ехать с пустым кузовом, игнорировать ритуалы.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="about">
+        <div class="container">
+            <div class="footer-logo">Камазианство</div>
+            <p>Официальный сайт учения Камаза-Вседержителя</p>
+            <p>Ты либо едешь по Пути, либо становишься его частью</p>
+            <div class="copyright">
+                © 2052 Церковь Непоколебимого Пути. Все права на крутящий момент защищены.<br>
+                Нечитание этого предупреждения — грех пустого кузова.
+            </div>
+        </div>
+    </footer>
+    
+    <div class="sin-counter">
+        <h4>Счетчик грехов на сайте</h4>
+        <div class="sin-item">
+            <span>Пустых кузовов:</span>
+            <span class="sin-count" id="empty-trucks">0</span>
+        </div>
+        <div class="sin-item">
+            <span>Свернувших с пути:</span>
+            <span class="sin-count" id="turned-away">0</span>
+        </div>
+        <div class="sin-item">
+            <span>Легковушников:</span>
+            <span class="sin-count" id="car-users">0</span>
+        </div>
+        <div class="sin-item">
+            <span>Ваших просмотров:</span>
+            <span class="sin-count" id="your-sins">1</span>
+        </div>
+    </div>
+    
+    <script>
+        // Плавная прокрутка к якорям
+        document.querySelectorAll('nav a, .btn').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Эффект для карточек при прокрутке
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    
+                    // Добавляем звуковой эффект для ритуалов
+                    if (entry.target.classList.contains('ritual')) {
+                        document.getElementById('your-sins').textContent = 
+                            parseInt(document.getElementById('your-sins').textContent) + 1;
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        // Наблюдаем за карточками
+        document.querySelectorAll('.belief-card, .codex-item, .ritual, .heaven-hell-container').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s, transform 0.5s';
+            observer.observe(el);
+        });
+        
+        // Случайное увеличение счетчика грехов
+        function incrementSinsRandomly() {
+            const counters = [
+                document.getElementById('empty-trucks'),
+                document.getElementById('turned-away'),
+                document.getElementById('car-users')
+            ];
+            
+            const randomCounter = counters[Math.floor(Math.random() * counters.length)];
+            const currentValue = parseInt(randomCounter.textContent);
+            randomCounter.textContent = currentValue + 1;
+            
+            // Мигающий эффект при изменении
+            randomCounter.style.color = '#ff0000';
+            setTimeout(() => {
+                randomCounter.style.color = '#ff6666';
+            }, 300);
+        }
+        
+        // Увеличиваем счетчики каждые 5-15 секунд
+        setInterval(incrementSinsRandomly, Math.random() * 10000 + 5000);
+        
+        // Увеличиваем счетчик просмотров при взаимодействии
+        document.addEventListener('click', function() {
+            const yourSins = document.getElementById('your-sins');
+            yourSins.textContent = parseInt(yourSins.textContent) + 1;
+            
+            // Эффект при увеличении
+            yourSins.style.transform = 'scale(1.5)';
+            setTimeout(() => {
+                yourSins.style.transform = 'scale(1)';
+            }, 300);
+        });
+        
+        // Предупреждение при попытке уйти со страницы
+        window.addEventListener('beforeunload', function(e) {
+            e.preventDefault();
+            e.returnValue = 'Свернуть с Пути? Помни о пустом кузове!';
+        });
+        
+        // Эффект мигания страницы при прокрутке к ритуалам
+        const ritualSection = document.getElementById('rituals');
+        const observerRitual = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Мигающий эффект фона
+                    document.body.style.backgroundColor = '#330000';
+                    setTimeout(() => {
+                        document.body.style.backgroundColor = '#1a1a1a';
+                    }, 300);
+                    
+                    // Увеличиваем счетчик
+                    document.getElementById('turned-away').textContent = 
+                        parseInt(document.getElementById('turned-away').textContent) + 3;
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        observerRitual.observe(ritualSection);
+        
+        // Добавляем эффект при наведении на кнопку
+        const acceptBtn = document.querySelector('.btn');
+        if (acceptBtn) {
+            acceptBtn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-4px) scale(1.05)';
+                this.style.boxShadow = '0 10px 25px rgba(204, 153, 0, 0.4)';
+            });
+            
+            acceptBtn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+                this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.5)';
+            });
+        }
+    </script>
+</body>
+</html>
