@@ -59,12 +59,3 @@
 | **Google Fonts** | Типографика |
 | **CSS Grid/Flexbox** | Макеты |
 | **SVG** | Иконки и графика |
-
-### Ключевые CSS-фичи:
-- CSS Custom Properties (переменные)
-- CSS Grid и Flexbox
-- CSS Animations & Transitions
-- CSS Gradients и Shadows
-- Media Queries для адаптивности
-
----
